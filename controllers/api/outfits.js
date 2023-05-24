@@ -37,10 +37,12 @@ async function update(req, res) {
 
 
 async function remove(req, res) {
+  console.log('we here')
   try {
-    const outfit = await Outfit.findByIdAndDelete(req.body);
+    console.log(req.params.id)
+    const outfit = await Outfit.findByIdAndDelete(req.params.id);
     console.log(outfit)
-    res.redirect('/wardrobe')
+    res.status(200).send(outfit)
   } catch (err) {
     res.status(400).send(err)
     }

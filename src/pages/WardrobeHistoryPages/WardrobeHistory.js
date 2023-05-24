@@ -2,7 +2,12 @@ import { checkToken } from "../../utilities/users-service";
 import { useEffect, useState } from 'react';
 import * as outfitsApi from '../../utilities/outfits-api'
 
+
 export default function WardrobeHistory() {
+
+  const [toggle, setToggle] = useState(false)
+
+
 
   const handleCheckToken = async () => {
     const expDate = await checkToken();
@@ -26,7 +31,7 @@ export default function WardrobeHistory() {
 
   useEffect( () => {
     getWardrobe()
-  }, [])
+  }, [toggle])
 
   return (
     <div>
@@ -58,11 +63,14 @@ export default function WardrobeHistory() {
                         <br />
                         Additional Description: {outfit.description}
                         {/* link to this specific fruit's edit page */}
-                        <a href={`/outfits/${outfit._id}/edit`}>Edit This Captain Log</a> 
+                        <br />
+                        {/* <a href={`/outfits/${outfit._id}/edit`}>Edit This Captain Log</a>  */}
                         {/* we must use a Form for delete because we need to make a request to our server.  You can't use handleClick in server-side app */}
-                        {/* <form action={`/outfits/${outfit._id}?_method=DELETE`} method ="POST">
-                            <input type="submit" value="DELETE" />
-                        </form> */}
+                        <br></br>
+                        <button onClick={async () =>  {
+                          const deleted = await outfitsApi.deleteOutfit(outfit._id)
+                          setToggle(!toggle)
+                          }}>DELETE</button>
                     </li>
                 );
                 
