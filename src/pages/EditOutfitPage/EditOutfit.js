@@ -1,7 +1,9 @@
+import * as outfitsApi from '../../utilities/outfits-api'
 
 
 export default function EditOutfitPage() {
 
+    
     return(
         <div>
             <form onSubmit={handleSubmit}>
